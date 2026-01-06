@@ -1,6 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
+import type { Database } from './database.types';
 
-// Placeholder for database client export
 export const createDbClient = (url: string, key: string) => {
-    return createClient(url, key);
+    return createClient<Database>(url, key);
 };
+
+export type { Database };

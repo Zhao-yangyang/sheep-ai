@@ -11,9 +11,9 @@
 | --------------- | ---------------------------- | ------------------------------------------ | ------ |
 | **Runtime**     | Bun                          | ✅ `bun@1.2.10`                            | 100%   |
 | **Framework**   | Next.js 16 + React 19        | ✅ `next@16` + `react@19`                  | 100%   |
-| **API**         | tRPC v11 + React Query       | ✅ Router 结构已建立，Context 已配置       | 90%    |
-| **Database**    | Supabase (Postgres + Vector) | ✅ `packages/db` 已初始化，依赖已装        | 80%    |
-| **AI**          | Vercel AI SDK 6.0            | ✅ `ai@6.0.3` + `@ai-sdk/openai`           | 50%    |
+| **API**         | tRPC v11 + React Query       | ✅ Router 结构已建立，Context 已配置       | 100%   |
+| **Database**    | Supabase (Postgres + Vector) | ✅ `packages/db` 已初始化，Auth 已集成     | 90%    |
+| **AI**          | Vercel AI SDK 6.0            | ✅ `ai@6.0.3` + DeepSeek Provider          | 100%   |
 | **UI**          | Tailwind 4 + Shadcn          | ✅ `packages/ui` 已初始化，Button 组件可用 | 100%   |
 | **Redis/Queue** | Upstash                      | ⚠️ .env 配置了，未实现                     | 10%    |
 | **Monorepo**    | Bun Workspaces               | ✅ 结构完整，依赖分层与引用正常            | 100%   |
@@ -129,12 +129,12 @@ sheepgpt-monorepo/
 
 ### 优先级 P1 (业务能力)
 
-| 模块       | 描述                                      |
-| ---------- | ----------------------------------------- |
-| API Routes | tRPC 端点挂载到 Next.js                   |
-| Auth       | Supabase 认证集成 (PKCE 流程)             |
-| AI         | AI SDK 调用封装 (generateText/streamText) |
-| State      | Zustand 全局状态管理                      |
+| 模块       | 描述                                 |
+| ---------- | ------------------------------------ |
+| API Routes | ✅ tRPC 端点已挂载到 Next.js         |
+| Auth       | ✅ Supabase 认证集成 (Client + SSR)  |
+| AI         | ✅ AI SDK 调用封装 (DeepSeek Custom) |
+| State      | Zustand 全局状态管理                 |
 
 ### 优先级 P2 (生产就绪)
 
