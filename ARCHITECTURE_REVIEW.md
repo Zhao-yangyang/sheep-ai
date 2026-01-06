@@ -7,18 +7,18 @@
 
 ## 一、当前完成状态 vs BibiGPT 架构
 
-| 技术栈模块 | BibiGPT 方案 | 当前状态 | 完成度 |
-|-----------|-------------|----------|-------|
-| **Runtime** | Bun | ✅ `bun@1.2.10` | 100% |
-| **Framework** | Next.js 16 + React 19 | ✅ `next@16` + `react@19` | 100% |
-| **API** | tRPC v11 + React Query | ⚠️ 依赖已装，未实现 router | 30% |
-| **Database** | Supabase (Postgres + Vector) | ⚠️ 依赖已装，`packages/db` 为空 | 10% |
-| **AI** | Vercel AI SDK 6.0 | ✅ `ai@6.0.3` + `@ai-sdk/openai` | 50% |
-| **UI** | Tailwind 4 + Shadcn | ❌ 未安装 | 0% |
-| **Redis/Queue** | Upstash | ⚠️ .env 配置了，未实现 | 10% |
-| **Monorepo** | Bun Workspaces | ✅ 结构完整 | 80% |
-| **Husky/Lint** | Husky + Lint-staged + Biome | ✅ 已配置 | 100% |
-| **跨平台** | Desktop/Mobile/Plugin | ⚠️ 目录已创建但为空 | 5% |
+| 技术栈模块      | BibiGPT 方案                 | 当前状态                                   | 完成度 |
+| --------------- | ---------------------------- | ------------------------------------------ | ------ |
+| **Runtime**     | Bun                          | ✅ `bun@1.2.10`                            | 100%   |
+| **Framework**   | Next.js 16 + React 19        | ✅ `next@16` + `react@19`                  | 100%   |
+| **API**         | tRPC v11 + React Query       | ✅ Router 结构已建立，Context 已配置       | 90%    |
+| **Database**    | Supabase (Postgres + Vector) | ✅ `packages/db` 已初始化，依赖已装        | 80%    |
+| **AI**          | Vercel AI SDK 6.0            | ✅ `ai@6.0.3` + `@ai-sdk/openai`           | 50%    |
+| **UI**          | Tailwind 4 + Shadcn          | ✅ `packages/ui` 已初始化，Button 组件可用 | 100%   |
+| **Redis/Queue** | Upstash                      | ⚠️ .env 配置了，未实现                     | 10%    |
+| **Monorepo**    | Bun Workspaces               | ✅ 结构完整，依赖分层与引用正常            | 100%   |
+| **Husky/Lint**  | Husky + Lint-staged + Biome  | ✅ 已配置                                  | 100%   |
+| **跨平台**      | Desktop/Mobile/Plugin        | ⚠️ 目录已创建但为空                        | 5%     |
 
 ---
 
@@ -60,24 +60,24 @@ sheepgpt-monorepo/
 
 ### 2.2 依赖安装位置速查表
 
-| 依赖类型 | 安装位置 | 原因 |
-|---------|---------|------|
-| `typescript`, `biome`, `husky` | 根目录 `devDependencies` | 开发工具，所有包共享 |
-| `@trpc/server`, `zod`, `ai` | `packages/core` | 核心业务逻辑，被多端引用 |
-| `zustand`, `nuqs` | `packages/core` | 状态管理是共享逻辑 |
-| `tailwindcss`, `framer-motion` | `packages/ui` | UI 层，被多端引用 |
-| `@supabase/supabase-js` | `packages/db` | 数据库客户端，被多端引用 |
-| `next` | `apps/web` | 仅 Web 使用的框架 |
-| `@tauri-apps/api` | `apps/desktop` | 仅桌面使用 |
-| `expo` | `apps/mobile` | 仅移动使用 |
-| `wxt` | `apps/plugin` | 仅插件使用 |
+| 依赖类型                       | 安装位置                 | 原因                     |
+| ------------------------------ | ------------------------ | ------------------------ |
+| `typescript`, `biome`, `husky` | 根目录 `devDependencies` | 开发工具，所有包共享     |
+| `@trpc/server`, `zod`, `ai`    | `packages/core`          | 核心业务逻辑，被多端引用 |
+| `zustand`, `nuqs`              | `packages/core`          | 状态管理是共享逻辑       |
+| `tailwindcss`, `framer-motion` | `packages/ui`            | UI 层，被多端引用        |
+| `@supabase/supabase-js`        | `packages/db`            | 数据库客户端，被多端引用 |
+| `next`                         | `apps/web`               | 仅 Web 使用的框架        |
+| `@tauri-apps/api`              | `apps/desktop`           | 仅桌面使用               |
+| `expo`                         | `apps/mobile`            | 仅移动使用               |
+| `wxt`                          | `apps/plugin`            | 仅插件使用               |
 
 ### 2.3 packages 与 apps 的职责划分
 
-| 目录 | 职责 | 特点 |
-|------|------|------|
-| `packages/*` | 共享代码库 | 被多个 apps 引用，不直接运行 |
-| `apps/*` | 可运行应用 | 引用 packages，负责平台特定配置 |
+| 目录         | 职责       | 特点                            |
+| ------------ | ---------- | ------------------------------- |
+| `packages/*` | 共享代码库 | 被多个 apps 引用，不直接运行    |
+| `apps/*`     | 可运行应用 | 引用 packages，负责平台特定配置 |
 
 ---
 
@@ -120,38 +120,38 @@ sheepgpt-monorepo/
 
 ### 优先级 P0 (核心基础)
 
-| 模块 | 当前状态 | 需要完成 |
-|------|---------|---------|
-| `packages/db` | 空目录 | Supabase 类型生成和 Schema |
-| `packages/core` | 仅 placeholder | tRPC router 定义、状态管理 |
-| `packages/ui` | 空目录 | Tailwind 4 + Shadcn 组件库 |
-| `apps/web` | 基础页面 | 引用 packages，tRPC 客户端集成 |
+| 模块            | 当前状态        | 需要完成                                           |
+| --------------- | --------------- | -------------------------------------------------- |
+| `packages/db`   | ✅ **已初始化** | Supabase 依赖已装，类型定义占位符已创建            |
+| `packages/core` | ✅ **已增强**   | tRPC Router (Root/AI/Context) 已建立，状态库已安装 |
+| `packages/ui`   | ✅ **已完成**   | Tailwind 4 配置修复，Button 组件测试通过           |
+| `apps/web`      | ✅ **已集成**   | 引用所有 packages，tRPC API/Client 联通，样式正常  |
 
 ### 优先级 P1 (业务能力)
 
-| 模块 | 描述 |
-|------|------|
-| API Routes | tRPC 端点挂载到 Next.js |
-| Auth | Supabase 认证集成 (PKCE 流程) |
-| AI | AI SDK 调用封装 (generateText/streamText) |
-| State | Zustand 全局状态管理 |
+| 模块       | 描述                                      |
+| ---------- | ----------------------------------------- |
+| API Routes | tRPC 端点挂载到 Next.js                   |
+| Auth       | Supabase 认证集成 (PKCE 流程)             |
+| AI         | AI SDK 调用封装 (generateText/streamText) |
+| State      | Zustand 全局状态管理                      |
 
 ### 优先级 P2 (生产就绪)
 
-| 模块 | 描述 |
-|------|------|
-| Upstash | Rate Limiting + Task Queue (QStash) |
+| 模块      | 描述                                          |
+| --------- | --------------------------------------------- |
+| Upstash   | Rate Limiting + Task Queue (QStash)           |
 | Analytics | Langfuse (AI 可观测性) / Amplitude (用户行为) |
-| CI/CD | GitHub Actions 流水线 |
-| Payment | Lemon Squeezy / Stripe 支付集成 |
+| CI/CD     | GitHub Actions 流水线                         |
+| Payment   | Lemon Squeezy / Stripe 支付集成               |
 
 ### 优先级 P3 (跨平台)
 
-| 模块 | 描述 |
-|------|------|
-| `apps/plugin` | WXT 浏览器插件 |
+| 模块           | 描述           |
+| -------------- | -------------- |
+| `apps/plugin`  | WXT 浏览器插件 |
 | `apps/desktop` | Tauri 桌面应用 |
-| `apps/mobile` | Expo 移动应用 |
+| `apps/mobile`  | Expo 移动应用  |
 
 ---
 
@@ -307,15 +307,15 @@ apps/web/
 
 无论最终业务方向如何，以下模块都是通用的：
 
-| 模块 | 功能 | 安装位置 | 对应文档章节 |
-|------|------|---------|-------------|
-| 用户认证 | Supabase Auth + PKCE | `packages/db` + `packages/core` | 2.2 Supabase |
-| AI 调用封装 | generateText/streamText | `packages/core` | 1.2 Hello World |
-| 流式 UI 组件 | Streaming + Skeleton | `packages/ui` | 4.2 流式 UI |
-| 配额/限流系统 | Upstash Redis | `packages/core` | 2.4 Task Queue / 5.2 配额 |
-| 结构化输出 | Zod Schema | `packages/core` | 1.4 结构化输出 |
-| 全局状态 | Zustand | `packages/core` | 4.3 状态管理 |
-| URL 状态 | nuqs | `packages/core` | 4.3 状态管理 |
+| 模块          | 功能                    | 安装位置                        | 对应文档章节              |
+| ------------- | ----------------------- | ------------------------------- | ------------------------- |
+| 用户认证      | Supabase Auth + PKCE    | `packages/db` + `packages/core` | 2.2 Supabase              |
+| AI 调用封装   | generateText/streamText | `packages/core`                 | 1.2 Hello World           |
+| 流式 UI 组件  | Streaming + Skeleton    | `packages/ui`                   | 4.2 流式 UI               |
+| 配额/限流系统 | Upstash Redis           | `packages/core`                 | 2.4 Task Queue / 5.2 配额 |
+| 结构化输出    | Zod Schema              | `packages/core`                 | 1.4 结构化输出            |
+| 全局状态      | Zustand                 | `packages/core`                 | 4.3 状态管理              |
+| URL 状态      | nuqs                    | `packages/core`                 | 4.3 状态管理              |
 
 ---
 
@@ -323,14 +323,14 @@ apps/web/
 
 既然核心业务还未确定，以下是可以复用此架构的方向：
 
-| 业务方向 | 核心能力 | 架构复用度 |
-|---------|---------|-----------|
-| AI 写作助手 | streamText + RAG | 90% |
-| 文档问答系统 | Embedding + pgvector | 85% |
-| 语音转文字工具 | Whisper + Groq | 80% |
-| 代码助手 | Tool Calling + Agent | 85% |
-| 内容审核/分析 | Vision + Structured Output | 80% |
-| 视频/音频摘要 | Map-Reduce + Multi-modal | 95% |
+| 业务方向       | 核心能力                   | 架构复用度 |
+| -------------- | -------------------------- | ---------- |
+| AI 写作助手    | streamText + RAG           | 90%        |
+| 文档问答系统   | Embedding + pgvector       | 85%        |
+| 语音转文字工具 | Whisper + Groq             | 80%        |
+| 代码助手       | Tool Calling + Agent       | 85%        |
+| 内容审核/分析  | Vision + Structured Output | 80%        |
+| 视频/音频摘要  | Map-Reduce + Multi-modal   | 95%        |
 
 ---
 
@@ -394,19 +394,19 @@ bun install
 
 ### 待配置
 
-| 依赖 | 目标位置 | 说明 |
-|------|---------|------|
-| Tailwind CSS 4 | `packages/ui` | UI 样式基础 |
-| Shadcn UI | `packages/ui` | 组件源码 |
-| Framer Motion | `packages/ui` | 动画库 |
-| Zustand | `packages/core` | 全局状态管理 |
-| nuqs | `packages/core` | URL 状态同步 |
-| Upstash Redis | `packages/core` | 限流/队列 |
-| Langfuse | `packages/core` | AI 可观测性 |
-| next-intl | `apps/web` | 国际化 (仅 Next.js) |
-| WXT | `apps/plugin` | 浏览器插件框架 |
-| Tauri | `apps/desktop` | 桌面应用框架 |
-| Expo | `apps/mobile` | 移动应用框架 |
+| 依赖           | 目标位置        | 说明                              |
+| -------------- | --------------- | --------------------------------- |
+| Tailwind CSS 4 | `packages/ui`   | ✅ 已配置 (且 app/web 已升级适配) |
+| Shadcn UI      | `packages/ui`   | ✅ 已初始化                       |
+| Framer Motion  | `packages/ui`   | ✅ 已安装                         |
+| Zustand        | `packages/core` | ✅ 已安装                         |
+| nuqs           | `packages/core` | ✅ 已安装                         |
+| Upstash Redis  | `packages/core` | 限流/队列                         |
+| Langfuse       | `packages/core` | AI 可观测性                       |
+| next-intl      | `apps/web`      | 国际化 (仅 Next.js)               |
+| WXT            | `apps/plugin`   | 浏览器插件框架                    |
+| Tauri          | `apps/desktop`  | 桌面应用框架                      |
+| Expo           | `apps/mobile`   | 移动应用框架                      |
 
 ---
 
