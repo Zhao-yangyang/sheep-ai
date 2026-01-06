@@ -1,0 +1,63 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2022"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@sheepgpt/core": [
+        "./packages/core/src"
+      ],
+      "@sheepgpt/core/*": [
+        "./packages/core/src/*"
+      ],
+      "@sheepgpt/ui": [
+        "./packages/ui/src"
+      ],
+      "@sheepgpt/ui/*": [
+        "./packages/ui/src/*"
+      ],
+      "@sheepgpt/db": [
+        "./packages/db/src"
+      ],
+      "@sheepgpt/db/*": [
+        "./packages/db/src/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    ".next",
+    ".turbo"
+  ],
+  "references": [
+    {
+      "path": "./packages/core"
+    },
+    {
+      "path": "./packages/ui"
+    },
+    {
+      "path": "./packages/db"
+    }
+  ]
+}
